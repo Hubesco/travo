@@ -35,8 +35,8 @@ describe("Vouchers", () => {
 
 async function init({ withData }) {
   if (withData) {
-    browser.storage.sync.get.mockReturnValue(
-      Promise.resolve([
+    browser.storage.sync.set({
+      vouchers: [
         {
           company: "British Airways",
           expiryDate: "2022-02-01",
@@ -47,8 +47,8 @@ async function init({ withData }) {
           expiryDate: "2023-03-01",
           code: "GHIJKL",
         },
-      ])
-    );
+      ],
+    });
   }
   let wrapper;
   await act(async () => {

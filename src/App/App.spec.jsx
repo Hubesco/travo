@@ -1,11 +1,17 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './index';
+import React from "react";
 
-describe('App', () => {
-  it('renders app without crashing', () => {
-    const { getByText } = render(<App />);
-    getByText('Travo');
-    getByText('Your vouchers');
+import { act, render } from "@testing-library/react";
+
+import App from "./index";
+
+describe("App", () => {
+  it("renders app without crashing", async () => {
+    let wrapper;
+
+    await act(async () => {
+      wrapper = render(<App />);
+    });
+    wrapper.getByText("Travo");
+    wrapper.getByText("Your vouchers");
   });
 });

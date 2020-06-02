@@ -6,5 +6,6 @@ describe("App", () => {
   it("renders app without crashing", () => {
     const { getByText } = render(<App />);
     getByText("Travo");
+    getByText("Your vouchers");
   });
 });

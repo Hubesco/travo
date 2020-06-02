@@ -1,11 +1,15 @@
 import React from "react";
-import "./App.css";
+import { StyledApp, StyledSection } from "./styles";
+import Vouchers from "../components/Vouchers";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">Travo</header>
-    </div>
+    <StyledApp>
+      <header>Travo</header>
+      <StyledSection>
+        <Vouchers />
+      </StyledSection>
+    </StyledApp>
   );
 }
 

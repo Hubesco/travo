@@ -1,6 +1,7 @@
 import React from "react";
-import { StyledApp, StyledSection } from "./styles";
+
 import Vouchers from "../components/Vouchers";
+import { StyledApp, StyledSection } from "./styles";
 
 function App() {
   return (

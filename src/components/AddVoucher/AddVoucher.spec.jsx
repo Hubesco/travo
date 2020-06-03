@@ -22,8 +22,8 @@ describe("AddVoucher", () => {
     await act(async () => {
       fireEvent.click(wrapper.getByTestId("add-voucher-submit"));
     });
-    wrapper.getByText("Please select a company");
-    wrapper.getByText("Please enter an expiry date");
-    wrapper.getByText("Please enter a voucher code");
+    wrapper.getByText("Company is mandatory");
+    wrapper.getByText("Expiry date is mandatory");
+    wrapper.getByText("Voucher code is mandatory");
   });
 });

@@ -12,13 +12,20 @@ function AddVoucher() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="company">Company</label>
-          <input
+          <select
             id="company"
             name="company"
             ref={register({
-              required: "Please select a company",
+              required: "Company is mandatory",
             })}
-          />
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Please select a company
+            </option>
+            <option value="british_airways">British Airways</option>
+            <option value="eurostar">Eurostar</option>
+          </select>
           <ErrorMessage name="company" errors={errors} />
         </div>
         <div>
@@ -30,13 +37,14 @@ function AddVoucher() {
                 minDate={new Date()}
                 showTimeSelect={false}
                 todayButton="Today"
+                placeholderText="Please select a date"
                 dropdownMode="select"
                 isClearable
                 shouldCloseOnSelect
               />
             }
             control={control}
-            rules={{ required: "Please enter an expiry date" }}
+            rules={{ required: "Expiry date is mandatory" }}
             name="expiryDate"
             id="expiryDate"
             valueName="selected"
@@ -51,7 +59,7 @@ function AddVoucher() {
           <input
             id="code"
             name="code"
-            ref={register({ required: "Please enter a voucher code" })}
+            ref={register({ required: "Voucher code is mandatory" })}
           />
           <ErrorMessage name="code" errors={errors} />
         </div>

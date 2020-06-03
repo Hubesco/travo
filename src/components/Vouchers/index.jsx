@@ -8,7 +8,8 @@ function Vouchers() {
 
   useEffect(() => {
     const fetchVouchers = async () => {
-      setVouchers((await Storage.get("vouchers")) || []);
+      const item = await Storage.get("vouchers");
+      setVouchers(item.vouchers || []);
     };
     fetchVouchers();
   }, []);

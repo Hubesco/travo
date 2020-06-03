@@ -9,12 +9,10 @@ function AddVoucher({ goToPageVouchers }) {
   const { control, handleSubmit, register, errors } = useForm();
   const onSubmit = async (voucher) => {
     voucher.expiryDate = format(voucher.expiryDate, "yyyy-MM-dd");
-    let vouchers = await Storage.get("vouchers");
-    if (!vouchers) {
-      vouchers = [];
-    }
-    vouchers.push(voucher);
-    await Storage.set({ vouchers });
+    const item = await Storage.get("vouchers");
+    const newVouchers = item.vouchers;
+    newVouchers.push(voucher);
+    await Storage.set({ vouchers: newVouchers });
     goToPageVouchers();
   };
 

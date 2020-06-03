@@ -1,13 +1,24 @@
 import "react-datepicker/dist/react-datepicker.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AddVoucher from "../components/AddVoucher";
 import Vouchers from "../components/Vouchers";
+import Storage from "../infrastructure/storage";
 import { StyledApp, StyledSection } from "./styles";
 
 function App() {
   const [page, setPage] = useState("pageVouchers");
+
+  useEffect(() => {
+    const initStorage = async () => {
+      const item = await Storage.get("vouchers");
+      if (!item.vouchers) {
+        await Storage.set({ vouchers: [] });
+      }
+    };
+    initStorage();
+  });
 
   function goToPageAddVoucher() {
     setPage("pageAddVoucher");

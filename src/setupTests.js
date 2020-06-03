@@ -10,12 +10,19 @@ class SyncStorageMock {
   }
 
   async get(key) {
-    return this.store[key] || null;
+    const value = this.store[key];
+    if (!value) {
+      return {};
+    }
+
+    return value;
   }
   async set(values) {
-    Object.keys(values).forEach((key) => {
-      this.store[key] = values[key];
-    });
+    for (let property in values) {
+      const objectToStore = {};
+      objectToStore[property] = values[property];
+      this.store[property] = objectToStore;
+    }
   }
 
   clear() {

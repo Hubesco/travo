@@ -1,8 +1,9 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import { Controller, ErrorMessage, useForm } from "react-hook-form";
 
 function AddVoucher() {
-  const { handleSubmit, register, errors } = useForm();
+  const { control, handleSubmit, register, errors } = useForm();
   const onSubmit = (values) => console.log(values);
 
   return (
@@ -18,16 +19,32 @@ function AddVoucher() {
               required: "Please select a company",
             })}
           />
-          {errors.company && <span>{errors.company.message}</span>}
+          <ErrorMessage name="company" errors={errors} />
         </div>
         <div>
           <label htmlFor="expiryDate">Expiry Date</label>
-          <input
-            id="expiryDate"
+          <Controller
+            as={
+              <DatePicker
+                dateFormat="dd/MM/yyyy"
+                minDate={new Date()}
+                showTimeSelect={false}
+                todayButton="Today"
+                dropdownMode="select"
+                isClearable
+                shouldCloseOnSelect
+              />
+            }
+            control={control}
+            rules={{ required: "Please enter an expiry date" }}
             name="expiryDate"
-            ref={register({ required: "Please enter an expiry date" })}
+            id="expiryDate"
+            valueName="selected"
+            onChange={([selected]) => {
+              return selected;
+            }}
           />
-          {errors.expiryDate && <span>{errors.expiryDate.message}</span>}
+          <ErrorMessage name="expiryDate" errors={errors} />
         </div>
         <div>
           <label htmlFor="code">Code</label>
@@ -36,7 +53,7 @@ function AddVoucher() {
             name="code"
             ref={register({ required: "Please enter a voucher code" })}
           />
-          {errors.code && <span>{errors.code.message}</span>}
+          <ErrorMessage name="code" errors={errors} />
         </div>
 
         <button type="submit" data-testid="add-voucher-submit">

@@ -1,3 +1,5 @@
+import "react-datepicker/dist/react-datepicker.css";
+
 import React, { useState } from "react";
 
 import AddVoucher from "../components/AddVoucher";

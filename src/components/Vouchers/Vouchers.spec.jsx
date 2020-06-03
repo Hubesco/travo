@@ -11,25 +11,27 @@ describe("Vouchers", () => {
     wrapper.getByText("Your vouchers");
   });
 
-  it("shows an empty list if user has no vouchers", async () => {
-    let wrapper = await init({});
+  describe("when user opens the list of vouchers", () => {
+    it("shows an empty list if user has no vouchers", async () => {
+      let wrapper = await init({});
 
-    wrapper.getByText("Company");
-    wrapper.getByText("Expiry Date");
-    wrapper.getByText("Code");
-    wrapper.getByText("No vouchers :'(");
-  });
+      wrapper.getByText("Company");
+      wrapper.getByText("Expiry Date");
+      wrapper.getByText("Code");
+      wrapper.getByText("No vouchers :'(");
+    });
 
-  it("shows the list of vouchers if user has some", async () => {
-    let wrapper = await init({ withData: true });
+    it("shows the list of vouchers if user has some", async () => {
+      let wrapper = await init({ withData: true });
 
-    wrapper.getByText("British Airways");
-    wrapper.getByText("01/02/2022");
-    wrapper.getByText("ABCDEF");
+      wrapper.getByText("British Airways");
+      wrapper.getByText("01/02/2022");
+      wrapper.getByText("ABCDEF");
 
-    wrapper.getByText("Eurostar");
-    wrapper.getByText("01/03/2023");
-    wrapper.getByText("GHIJKL");
+      wrapper.getByText("Eurostar");
+      wrapper.getByText("01/03/2023");
+      wrapper.getByText("GHIJKL");
+    });
   });
 });
 

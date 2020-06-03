@@ -4,6 +4,6 @@ export function parse(dateString) {
   return parseISO(dateString);
 }
 
-export function format(date) {
-  return formatDateFns(date, "dd/MM/yyyy");
+export function format(date, format = "dd/MM/yyyy") {
+  return formatDateFns(date, format);
 }

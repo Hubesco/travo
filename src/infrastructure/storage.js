@@ -1,7 +1,7 @@
 const Storage = {
-  set: (key) => {
+  set: async (key) => {
     /*eslint-disable no-undef*/
-    browser.storage.sync.set(key);
+    await browser.storage.sync.set(key);
     /*eslint-enable no-undef*/
   },
   get: async (key) => {

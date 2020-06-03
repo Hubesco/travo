@@ -30,7 +30,7 @@ function App() {
       )}
       {page === "pageAddVoucher" && (
         <StyledSection>
-          <AddVoucher />
+          <AddVoucher goToPageVouchers={goToPageVouchers} />
           <button
             onClick={goToPageVouchers}
             data-testid="cancel-add-voucher-button"

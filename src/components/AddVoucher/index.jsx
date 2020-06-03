@@ -2,9 +2,21 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import { Controller, ErrorMessage, useForm } from "react-hook-form";
 
-function AddVoucher() {
+import Storage from "../../infrastructure/storage";
+import { format } from "../../utils/date";
+
+function AddVoucher({ goToPageVouchers }) {
   const { control, handleSubmit, register, errors } = useForm();
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = async (voucher) => {
+    voucher.expiryDate = format(voucher.expiryDate, "yyyy-MM-dd");
+    let vouchers = await Storage.get("vouchers");
+    if (!vouchers) {
+      vouchers = [];
+    }
+    vouchers.push(voucher);
+    await Storage.set({ vouchers });
+    goToPageVouchers();
+  };
 
   return (
     <div>
@@ -15,6 +27,7 @@ function AddVoucher() {
           <select
             id="company"
             name="company"
+            data-testid="select-company"
             ref={register({
               required: "Company is mandatory",
             })}
@@ -23,10 +36,10 @@ function AddVoucher() {
             <option value="" disabled>
               Please select a company
             </option>
-            <option value="british_airways">British Airways</option>
-            <option value="eurostar">Eurostar</option>
+            <option value="British Airways">British Airways</option>
+            <option value="Eurostar">Eurostar</option>
           </select>
-          <ErrorMessage name="company" errors={errors} />
+          <ErrorMessage as="p" name="company" errors={errors} />
         </div>
         <div>
           <label htmlFor="expiryDate">Expiry Date</label>
@@ -37,7 +50,7 @@ function AddVoucher() {
                 minDate={new Date()}
                 showTimeSelect={false}
                 todayButton="Today"
-                placeholderText="Please select a date"
+                placeholderText="Select a date"
                 dropdownMode="select"
                 isClearable
                 shouldCloseOnSelect
@@ -52,7 +65,7 @@ function AddVoucher() {
               return selected;
             }}
           />
-          <ErrorMessage name="expiryDate" errors={errors} />
+          <ErrorMessage as="p" name="expiryDate" errors={errors} />
         </div>
         <div>
           <label htmlFor="code">Code</label>
@@ -61,7 +74,7 @@ function AddVoucher() {
             name="code"
             ref={register({ required: "Voucher code is mandatory" })}
           />
-          <ErrorMessage name="code" errors={errors} />
+          <ErrorMessage as="p" name="code" errors={errors} />
         </div>
 
         <button type="submit" data-testid="add-voucher-submit">

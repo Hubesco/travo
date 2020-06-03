@@ -14,8 +14,8 @@ function Vouchers() {
   }, []);
 
   return (
-    <div className="Vouchers">
-      <header className="Vouchers-header">Your vouchers</header>
+    <div>
+      <header>Your vouchers</header>
       <table>
         <thead>
           <tr>

@@ -14,11 +14,11 @@ function App() {
     const initStorage = async () => {
       const item = await Storage.get("vouchers");
       if (!item.vouchers) {
-        await Storage.set({ vouchers: [] });
+        await Storage.set({ vouchers: {} });
       }
     };
     initStorage();
-  });
+  }, []);
 
   function goToPageAddVoucher() {
     setPage("pageAddVoucher");

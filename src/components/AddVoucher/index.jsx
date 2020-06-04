@@ -2,16 +2,19 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import { Controller, ErrorMessage, useForm } from "react-hook-form";
 
+import { v4 as uuidv4 } from "uuid";
+
 import Storage from "../../infrastructure/storage";
 import { format } from "../../utils/date";
 
 function AddVoucher({ goToPageVouchers }) {
   const { control, handleSubmit, register, errors } = useForm();
   const onSubmit = async (voucher) => {
+    voucher.id = uuidv4();
     voucher.expiryDate = format(voucher.expiryDate, "yyyy-MM-dd");
     const item = await Storage.get("vouchers");
     const newVouchers = item.vouchers;
-    newVouchers.push(voucher);
+    newVouchers[voucher.id] = voucher;
     await Storage.set({ vouchers: newVouchers });
     goToPageVouchers();
   };

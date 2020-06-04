@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Storage from "../../infrastructure/storage";
+import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
 import { format, parse } from "../../utils/date";
 
 function Vouchers() {
@@ -8,17 +8,17 @@ function Vouchers() {
 
   useEffect(() => {
     const fetchVouchers = async () => {
-      const item = await Storage.get("vouchers");
+      const item = await storage.get("vouchers");
       setVouchers(item.vouchers || {});
     };
     fetchVouchers();
   }, []);
 
   async function removeVoucher(voucherId) {
-    const item = await Storage.get("vouchers");
+    const item = await storage.get(STORAGE_KEYS.VOUCHERS);
     const newVouchers = item.vouchers;
     delete newVouchers[voucherId];
-    await Storage.set({ vouchers: newVouchers });
+    await storage.set({ vouchers: newVouchers });
     setVouchers(newVouchers);
   }
 

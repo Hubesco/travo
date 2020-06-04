@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import AddVoucher from "../components/AddVoucher";
 import Vouchers from "../components/Vouchers";
-import Storage from "../infrastructure/storage";
+import storage, { STORAGE_KEYS } from "../infrastructure/storage";
 import { StyledApp, StyledSection } from "./styles";
 
 function App() {
@@ -12,9 +12,9 @@ function App() {
 
   useEffect(() => {
     const initStorage = async () => {
-      const item = await Storage.get("vouchers");
+      const item = await storage.get(STORAGE_KEYS.VOUCHERS);
       if (!item.vouchers) {
-        await Storage.set({ vouchers: {} });
+        await storage.set({ vouchers: {} });
       }
     };
     initStorage();

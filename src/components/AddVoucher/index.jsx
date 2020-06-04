@@ -4,7 +4,7 @@ import { Controller, ErrorMessage, useForm } from "react-hook-form";
 
 import { v4 as uuidv4 } from "uuid";
 
-import Storage from "../../infrastructure/storage";
+import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
 import { format } from "../../utils/date";
 
 function AddVoucher({ goToPageVouchers }) {
@@ -12,10 +12,10 @@ function AddVoucher({ goToPageVouchers }) {
   const onSubmit = async (voucher) => {
     voucher.id = uuidv4();
     voucher.expiryDate = format(voucher.expiryDate, "yyyy-MM-dd");
-    const item = await Storage.get("vouchers");
+    const item = await storage.get(STORAGE_KEYS.VOUCHERS);
     const newVouchers = item.vouchers;
     newVouchers[voucher.id] = voucher;
-    await Storage.set({ vouchers: newVouchers });
+    await storage.set({ vouchers: newVouchers });
     goToPageVouchers();
   };
 

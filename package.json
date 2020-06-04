@@ -17,7 +17,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "INLINE_RUNTIME_CHUNK=false GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "yarn build:app && yarn build:bg",
+    "build:app": "INLINE_RUNTIME_CHUNK=false GENERATE_SOURCEMAP=false react-scripts build",
+    "build:bg": "webpack --mode production ./src/background.js --output ./build/background.js",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "watch": "./scripts/watch.js",
@@ -56,6 +58,7 @@
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "prettier": "^2.0.5",
     "prettier-plugin-import-sort": "^0.0.4",
+    "webpack-cli": "^3.3.11",
     "webpack-extension-reloader": "^1.1.4"
   }
 }

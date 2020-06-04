@@ -11,4 +11,7 @@ const Storage = {
   },
 };
 
+export const STORAGE_KEYS = {
+  VOUCHERS: "vouchers",
+};
 export default Storage;

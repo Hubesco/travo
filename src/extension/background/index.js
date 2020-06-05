@@ -15,7 +15,6 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (!matchedVoucher) {
     return;
   }
-  console.log(matchedVoucher);
   await sendNotification(matchedVoucher, tab.id);
 }, filter);
 
@@ -49,7 +48,6 @@ async function sendNotification(voucher, tabId) {
     await browser.tabs.sendMessage(tabId, {
       voucher,
     });
-    console.log("sent");
   } catch (err) {
     console.log(err);
   }

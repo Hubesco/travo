@@ -7,4 +7,12 @@ module.exports = {
     filename: "[name].js",
     path: __dirname + "/build/static/js",
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };

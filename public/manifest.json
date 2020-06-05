@@ -11,12 +11,12 @@
     "default_popup": "index.html"
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["static/js/background.js"]
   },
   "content_scripts": [
     {
       "matches": ["https://*/*"],
-      "js": ["notification.js"]
+      "js": ["static/js/notification.js"]
     }
   ],
   "permissions": ["activeTab", "storage", "tabs"]

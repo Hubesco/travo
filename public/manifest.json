@@ -13,5 +13,12 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions": ["storage", "tabs"]
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["notification/index.js"],
+      "css": ["notification/inde.css"]
+    }
+  ],
+  "permissions": ["activeTab", "storage", "tabs"]
 }

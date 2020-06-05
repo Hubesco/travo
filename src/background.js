@@ -5,19 +5,18 @@ const filter = {
   urls: ["https://*.britishairways.com/*", "https://*.eurostar.com/*"],
 };
 
-browser.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
+browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const tabUrl = tab.url;
   const companyName = getCompanyNameFromUrl(tabUrl);
   if (!companyName) {
     return;
   }
-  console.log(companyName);
-  const matchedVoucher = await matchVouchedWithCompanyName(companyName);
+  const matchedVoucher = await matchVoucherWithCompanyName(companyName);
   if (!matchedVoucher) {
     return;
   }
   console.log(matchedVoucher);
-  openPopup();
+  await sendNotification(matchedVoucher, tab.id);
 }, filter);
 
 function getCompanyNameFromUrl(tabUrl) {
@@ -30,7 +29,7 @@ function getCompanyNameFromUrl(tabUrl) {
   return matchedCompanyName;
 }
 
-async function matchVouchedWithCompanyName(companyName) {
+async function matchVoucherWithCompanyName(companyName) {
   const vouchers = (await storage.get(STORAGE_KEYS.VOUCHERS)).vouchers;
   if (!vouchers) {
     return;
@@ -45,4 +44,13 @@ async function matchVouchedWithCompanyName(companyName) {
   return matchedVoucher;
 }
 
-function openPopup() {}
+async function sendNotification(voucher, tabId) {
+  try {
+    await browser.tabs.sendMessage(tabId, {
+      voucher,
+    });
+    console.log("sent");
+  } catch (err) {
+    console.log(err);
+  }
+}

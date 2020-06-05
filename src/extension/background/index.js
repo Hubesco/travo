@@ -1,5 +1,5 @@
-import companies from "./domain/companies";
-import storage, { STORAGE_KEYS } from "./infrastructure/storage";
+import companies from "../../domain/companies";
+import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
 
 const filter = {
   urls: ["https://*.britishairways.com/*", "https://*.eurostar.com/*"],

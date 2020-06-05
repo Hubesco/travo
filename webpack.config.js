@@ -1,7 +1,7 @@
 module.exports = {
   entry: {
-    notification: "./src/notification/index.js",
-    background: "./src/background.js",
+    notification: "./src/extension/notification/index.js",
+    background: "./src/extension/background/index.js",
   },
   output: {
     filename: "[name].js",

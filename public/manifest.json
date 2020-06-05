@@ -16,8 +16,7 @@
   "content_scripts": [
     {
       "matches": ["https://*/*"],
-      "js": ["notification/index.js"],
-      "css": ["notification/inde.css"]
+      "js": ["notification.js"]
     }
   ],
   "permissions": ["activeTab", "storage", "tabs"]

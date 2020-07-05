@@ -1,9 +1,10 @@
 import companies from "../../domain/companies";
+import browser from "../../infrastructure/browser";
 import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
 
-const filter = {
-  urls: ["https://*.britishairways.com/*", "https://*.eurostar.com/*"],
-};
+// const filter = {
+//   urls: ["https://*.britishairways.com/*", "https://*.eurostar.com/*"],
+// };
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   const tabUrl = tab.url;
@@ -16,7 +17,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     return;
   }
   await sendNotification(matchedVoucher, tab.id);
-}, filter);
+});
 
 function getCompanyNameFromUrl(tabUrl) {
   let matchedCompanyName;

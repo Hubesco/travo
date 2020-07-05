@@ -1,13 +1,19 @@
+import browser from "./browser";
+
 const Storage = {
   set: async (keys) => {
-    /*eslint-disable no-undef*/
-    await browser.storage.sync.set(keys);
-    /*eslint-enable no-undef*/
+    return new Promise((resolve, reject) => {
+      browser.storage.sync.set(keys, () => {
+        resolve();
+      });
+    });
   },
   get: async (key) => {
-    /*eslint-disable no-undef*/
-    return await browser.storage.sync.get(key);
-    /*eslint-enable no-undef*/
+    return new Promise((resolve, reject) => {
+      browser.storage.sync.get(key, (result) => {
+        resolve(result);
+      });
+    });
   },
 };
 

@@ -1,3 +1,4 @@
+import browser from "../../infrastructure/browser";
 import { format, parse } from "../../utils/date";
 
 import "./index.css";

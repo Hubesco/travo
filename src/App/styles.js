@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import { makeStyles } from "@material-ui/core/styles";
 
-export const StyledApp = styled.div`
-  padding: 16px;
-`;
+const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1,
+  },
+}));
 
-export const StyledSection = styled.section`
-  padding: 16px 0;
-`;
+export default useStyles;

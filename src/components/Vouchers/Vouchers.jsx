@@ -34,7 +34,18 @@ function Vouchers({ vouchers, setVouchers, removeVoucher }) {
             <TableRow key={index}>
               <TableCell>{v.company}</TableCell>
               <TableCell>{format(parse(v.expiryDate))}</TableCell>
-              <TableCell>{v.code}</TableCell>
+              <TableCell>
+                <div
+                  style={{
+                    maxWidth: "60px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {v.code}
+                </div>
+              </TableCell>
               <TableCell>
                 <button onClick={() => removeVoucher(v.id)}>Remove</button>
               </TableCell>

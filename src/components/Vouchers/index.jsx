@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from "react";
 
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+
 import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
 import { format, parse } from "../../utils/date";
 
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+  },
+  container: {
+    maxHeight: 320,
+  },
+});
+
 function Vouchers() {
   const [vouchers, setVouchers] = useState({});
+  const classes = useStyles();
 
   useEffect(() => {
     const fetchVouchers = async () => {
@@ -23,40 +42,35 @@ function Vouchers() {
   }
 
   return (
-    <div>
-      <header>Your vouchers</header>
-      <table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Expiry Date</th>
-            <th>Code</th>
-            <th></th>
-          </tr>
-        </thead>
-        {Object.keys(vouchers).length === 0 && (
-          <tbody>
-            <tr>
-              <td colSpan="3">No vouchers :'(</td>
-            </tr>
-          </tbody>
-        )}
-        {Object.keys(vouchers).length > 0 && (
-          <tbody>
-            {Object.values(vouchers).map((v, index) => (
-              <tr key={index}>
-                <td>{v.company}</td>
-                <td>{format(parse(v.expiryDate))}</td>
-                <td>{v.code}</td>
-                <td>
-                  <button onClick={() => removeVoucher(v.id)}>Remove</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        )}
-      </table>
-    </div>
+    <TableContainer className={classes.container}>
+      <Table stickyHeader>
+        <TableHead>
+          <TableRow>
+            <TableCell>Company</TableCell>
+            <TableCell>Expiry Date</TableCell>
+            <TableCell>Code</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Object.keys(vouchers).length === 0 && (
+            <TableRow>
+              <TableCell colSpan="3">No vouchers :'(</TableCell>
+            </TableRow>
+          )}
+          {Object.values(vouchers).map((v, index) => (
+            <TableRow key={index}>
+              <TableCell>{v.company}</TableCell>
+              <TableCell>{format(parse(v.expiryDate))}</TableCell>
+              <TableCell>{v.code}</TableCell>
+              <TableCell>
+                <button onClick={() => removeVoucher(v.id)}>Remove</button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

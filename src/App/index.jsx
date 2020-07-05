@@ -2,13 +2,23 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import React, { useEffect, useState } from "react";
 
+import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
 import AddVoucher from "../components/AddVoucher";
 import Vouchers from "../components/Vouchers";
 import storage, { STORAGE_KEYS } from "../infrastructure/storage";
-import { StyledApp, StyledSection } from "./styles";
+import { StyledSection } from "./styles";
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 function App() {
   const [page, setPage] = useState("pageVouchers");
+  const classes = useStyles();
 
   useEffect(() => {
     const initStorage = async () => {
@@ -29,29 +39,39 @@ function App() {
   }
 
   return (
-    <StyledApp>
-      <header>Travo</header>
-      {page === "pageVouchers" && (
-        <StyledSection>
-          <Vouchers />
-          <button onClick={goToPageAddVoucher} data-testid="add-voucher-button">
+    <Box>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Travo
+          </Typography>
+          <Button
+            color="inherit"
+            onClick={goToPageAddVoucher}
+            data-testid="add-voucher-button"
+          >
             Add voucher
-          </button>
-        </StyledSection>
+          </Button>
+        </Toolbar>
+      </AppBar>
+      {page === "pageVouchers" && (
+        <>
+          <Vouchers />
+        </>
       )}
       {page === "pageAddVoucher" && (
-        <StyledSection>
+        <>
           <AddVoucher goToPageVouchers={goToPageVouchers} />
-          <button
+          <Button
             onClick={goToPageVouchers}
             data-testid="cancel-add-voucher-button"
           >
             Cancel
-          </button>
-        </StyledSection>
+          </Button>
+        </>
       )}
       <StyledSection></StyledSection>
-    </StyledApp>
+    </Box>
   );
 }
 

@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "css-loader": "^3.5.3",
-    "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "import-sort-style-react": "^5.1.0",
     "jest-environment-jsdom-sixteen": "^1.0.3",

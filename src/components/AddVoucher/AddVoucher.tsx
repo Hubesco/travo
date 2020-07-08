@@ -42,7 +42,6 @@ function AddVoucher({ onSubmit, goToPageVouchers }: AddVoucherProps) {
 
   return (
     <div style={{ padding: "4px 32px 4px 16px" }}>
-      <header>Add a new voucher</header>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl className={classes.formControl}>
           <InputLabel id="label-company">Company</InputLabel>

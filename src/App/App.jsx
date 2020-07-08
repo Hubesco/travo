@@ -16,13 +16,15 @@ function App({ page, goToPageAddVoucher, goToPageVouchers }) {
           <Typography variant="h6" className={classes.title}>
             Travo
           </Typography>
-          <Button
-            color="inherit"
-            onClick={goToPageAddVoucher}
-            data-testid="add-voucher-button"
-          >
-            Add voucher
-          </Button>
+          {page !== "pageAddVoucher" && (
+            <Button
+              color="inherit"
+              onClick={goToPageAddVoucher}
+              data-testid="add-voucher-button"
+            >
+              Add voucher
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       {page === "pageVouchers" && (

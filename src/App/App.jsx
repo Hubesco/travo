@@ -1,5 +1,3 @@
-import "react-datepicker/dist/react-datepicker.css";
-
 import React from "react";
 
 import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
@@ -33,15 +31,7 @@ function App({ page, goToPageAddVoucher, goToPageVouchers }) {
         </>
       )}
       {page === "pageAddVoucher" && (
-        <>
-          <AddVoucher goToPageVouchers={goToPageVouchers} />
-          <Button
-            onClick={goToPageVouchers}
-            data-testid="cancel-add-voucher-button"
-          >
-            Cancel
-          </Button>
-        </>
+        <AddVoucher goToPageVouchers={goToPageVouchers} />
       )}
     </Box>
   );

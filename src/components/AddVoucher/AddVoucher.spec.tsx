@@ -1,11 +1,11 @@
 import React from "react";
 
-import { act, fireEvent, render } from "@testing-library/react";
+import { RenderResult, act, fireEvent, render } from "@testing-library/react";
 
 import App from "../../App";
 
 describe("AddVoucher", () => {
-  let wrapper;
+  let wrapper: RenderResult;
   beforeEach(async () => {
     await act(async () => {
       wrapper = render(<App />);

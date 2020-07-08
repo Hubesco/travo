@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Voucher from '../../domain/voucher.type'
 
 import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
 import Vouchers from "./Vouchers";
@@ -8,14 +9,14 @@ function VouchersContainer() {
 
   useEffect(() => {
     const fetchVouchers = async () => {
-      const item = await storage.get("vouchers");
-      setVouchers(item.vouchers || {});
+      const item: any = await storage.get("vouchers");
+      setVouchers(item.vouchers || new Map);
     };
     fetchVouchers();
   }, []);
 
-  async function removeVoucher(voucherId) {
-    const item = await storage.get(STORAGE_KEYS.VOUCHERS);
+  async function removeVoucher(voucherId: string) {
+    const item: any = await storage.get(STORAGE_KEYS.VOUCHERS);
     const newVouchers = { ...item.vouchers };
     delete newVouchers[voucherId];
     await storage.set({ vouchers: newVouchers });

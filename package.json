@@ -7,6 +7,10 @@
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.4",
     "@testing-library/user-event": "^12.0.11",
+    "@types/jest": "^26.0.4",
+    "@types/node": "^14.0.19",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
     "date-fns": "^2.14.0",
     "fontsource-roboto": "^2.1.4",
     "react": "^16.13.1",
@@ -15,6 +19,7 @@
     "react-hook-form": "^5.7.2",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
+    "typescript": "^3.9.6",
     "uuid": "^8.2.0"
   },
   "scripts": {
@@ -49,7 +54,7 @@
     ]
   },
   "importSort": {
-    ".js, .jsx": {
+    ".js, .jsx, .ts, .tsx": {
       "style": "react"
     }
   },
@@ -61,6 +66,7 @@
     "prettier": "^2.0.5",
     "prettier-plugin-import-sort": "^0.0.4",
     "style-loader": "^1.2.1",
+    "ts-loader": "^7.0.5",
     "webpack-cli": "^3.3.11",
     "webpack-extension-reloader": "^1.1.4"
   }

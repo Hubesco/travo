@@ -1,16 +1,16 @@
 import browser from "./browser";
 
 const Storage = {
-  set: async (keys) => {
+  set: async (keys: any) => {
     return new Promise((resolve, reject) => {
       browser.storage.sync.set(keys, () => {
         resolve();
       });
     });
   },
-  get: async (key) => {
+  get: async (key: string) => {
     return new Promise((resolve, reject) => {
-      browser.storage.sync.get(key, (result) => {
+      browser.storage.sync.get(key, (result: any) => {
         resolve(result);
       });
     });

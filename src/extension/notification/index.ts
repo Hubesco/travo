@@ -3,7 +3,7 @@ import { format, parse } from "../../utils/date";
 
 import "./index.css";
 
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((message: any, sender: any, sendResponse: any) => {
   let notification = document.getElementById("travo-notification");
   if (notification) {
     return;

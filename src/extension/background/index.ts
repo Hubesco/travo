@@ -1,12 +1,9 @@
 import companies from "../../domain/companies";
 import browser from "../../infrastructure/browser";
 import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
+import Voucher from '../../domain/voucher.type'
 
-// const filter = {
-//   urls: ["https://*.britishairways.com/*", "https://*.eurostar.com/*"],
-// };
-
-browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+browser.tabs.onUpdated.addListener(async (tabId: any, changeInfo: any, tab: any) => {
   const tabUrl = tab.url;
   const companyName = getCompanyNameFromUrl(tabUrl);
   if (!companyName) {
@@ -19,7 +16,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   await sendNotification(matchedVoucher, tab.id);
 });
 
-function getCompanyNameFromUrl(tabUrl) {
+function getCompanyNameFromUrl(tabUrl: string) {
   let matchedCompanyName;
   Object.entries(companies).forEach(([companyName, companyDomain]) => {
     if (tabUrl.includes(companyDomain)) {
@@ -29,22 +26,22 @@ function getCompanyNameFromUrl(tabUrl) {
   return matchedCompanyName;
 }
 
-async function matchVoucherWithCompanyName(companyName) {
-  const vouchers = (await storage.get(STORAGE_KEYS.VOUCHERS)).vouchers;
+async function matchVoucherWithCompanyName(companyName: string) {
+  const vouchers = (await storage.get(STORAGE_KEYS.VOUCHERS) as any).vouchers;
   if (!vouchers) {
     return;
   }
 
   let matchedVoucher;
   Object.entries(vouchers).forEach(([id, voucher]) => {
-    if (voucher.company === companyName) {
+    if ((voucher as Voucher).company === companyName) {
       matchedVoucher = voucher;
     }
   });
   return matchedVoucher;
 }
 
-async function sendNotification(voucher, tabId) {
+async function sendNotification(voucher: Voucher, tabId: string) {
   try {
     await browser.tabs.sendMessage(tabId, {
       voucher,

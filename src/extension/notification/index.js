@@ -19,6 +19,5 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   <p>${format(parse(voucher.expiryDate))}</p>
   <p>${voucher.code}</p>
   `;
-  console.log("here");
   document.body.appendChild(notification);
 });

@@ -2,48 +2,45 @@ import React from "react";
 
 import { act, fireEvent, render } from "@testing-library/react";
 
+import browser from "../../infrastructure/browser";
 import Vouchers from "./index";
 
 describe("Vouchers", () => {
-  it("renders the component", async () => {
-    let wrapper = await init({});
-
-    wrapper.getByText("Your vouchers");
-  });
-
-  describe("when user opens the list of vouchers", () => {
-    it("shows an empty list if user has no vouchers", async () => {
-      let wrapper = await init({});
-
-      wrapper.getByText("Company");
-      wrapper.getByText("Expiry Date");
-      wrapper.getByText("Code");
-      wrapper.getByText("No vouchers :'(");
-    });
-
-    it("shows the list of vouchers if user has some", async () => {
-      let wrapper = await init({ withData: true });
-
-      wrapper.getByText("British Airways");
-      wrapper.getByText("01/02/2022");
-      wrapper.getByText("ABCDEF");
-
-      wrapper.getByText("Eurostar");
-      wrapper.getByText("01/03/2023");
-      wrapper.getByText("GHIJKL");
-    });
-  });
+  //   describe("when user opens the list of vouchers", () => {
+  //     it("shows an empty list if user has no vouchers", async () => {
+  //       let wrapper = await init({});
+  //
+  //       wrapper.getByText("Company");
+  //       wrapper.getByText("Expiry Date");
+  //       wrapper.getByText("Code");
+  //       wrapper.getByText("No vouchers :'(");
+  //     });
+  //
+  //     it("shows the list of vouchers if user has some", async () => {
+  //       let wrapper = await init({ withData: true });
+  //
+  //       wrapper.getByText("British Airways");
+  //       wrapper.getByText("01/02/2022");
+  //       wrapper.getByText("ABCDEF");
+  //
+  //       wrapper.getByText("Eurostar");
+  //       wrapper.getByText("01/03/2023");
+  //       wrapper.getByText("GHIJKL");
+  //     });
+  //   });
 
   describe("when user wants to remove a voucher", () => {
-    it("shows a button to delete a voucher", async () => {
-      let wrapper = await init({ withData: true });
+    let wrapper;
+    beforeEach(async () => {
+      wrapper = await init({ withData: true });
+    });
 
+    it("shows a button to delete a voucher", async () => {
       const removeButtons = wrapper.getAllByText("Remove");
       expect(removeButtons.length).toBe(2);
     });
 
-    it.skip("deletes the voucher if user clicks on remove button", async () => {
-      let wrapper = await init({ withData: true });
+    it("deletes the voucher if user clicks on remove button", async () => {
       const removeButtons = wrapper.getAllByText("Remove");
       await act(async () => {
         fireEvent.click(removeButtons[0]);
@@ -60,7 +57,7 @@ describe("Vouchers", () => {
 
 async function init({ withData }) {
   if (withData) {
-    browser.storage.sync.set({
+    await browser.storage.sync.set({
       vouchers: {
         uuid1: {
           id: "uuid1",

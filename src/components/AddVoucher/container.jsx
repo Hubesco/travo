@@ -11,7 +11,7 @@ function AddVoucherContainer({ goToPageVouchers }) {
     voucher.id = uuidv4();
     voucher.expiryDate = format(voucher.expiryDate, "yyyy-MM-dd");
     const item = await storage.get(STORAGE_KEYS.VOUCHERS);
-    const newVouchers = item.vouchers;
+    const newVouchers = { ...item.vouchers };
     newVouchers[voucher.id] = voucher;
     await storage.set({ vouchers: newVouchers });
     goToPageVouchers();

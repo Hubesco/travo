@@ -16,19 +16,13 @@ function VouchersContainer() {
 
   async function removeVoucher(voucherId) {
     const item = await storage.get(STORAGE_KEYS.VOUCHERS);
-    const newVouchers = item.vouchers;
+    const newVouchers = { ...item.vouchers };
     delete newVouchers[voucherId];
     await storage.set({ vouchers: newVouchers });
     setVouchers(newVouchers);
   }
 
-  return (
-    <Vouchers
-      vouchers={vouchers}
-      setVouchers={setVouchers}
-      removeVoucher={removeVoucher}
-    />
-  );
+  return <Vouchers vouchers={vouchers} removeVoucher={removeVoucher} />;
 }
 
 export default VouchersContainer;

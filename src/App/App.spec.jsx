@@ -15,7 +15,6 @@ describe("App", () => {
 
   it("renders app without crashing", async () => {
     wrapper.getByText("Travo");
-    wrapper.getByText("Your vouchers");
   });
 
   describe("when user wants to add a new voucher", () => {
@@ -29,7 +28,7 @@ describe("App", () => {
       await act(async () => {
         fireEvent.click(wrapper.getByTestId("cancel-add-voucher-button"));
       });
-      wrapper.getByText("Your vouchers");
+      wrapper.getByText("Company");
     });
   });
 });

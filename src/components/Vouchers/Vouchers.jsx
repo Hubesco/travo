@@ -10,7 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { format, parse } from "../../utils/date";
 import useStyles from "./styles";
 
-function Vouchers({ vouchers, setVouchers, removeVoucher }) {
+function Vouchers({ vouchers, removeVoucher }) {
   const classes = useStyles();
 
   return (

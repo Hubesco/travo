@@ -23,7 +23,7 @@ describe("AddVoucher", () => {
 
   it("shows validation messages when user submits form without filling fields", async () => {
     await act(async () => {
-      fireEvent.click(wrapper.getByTestId("add-voucher-submit"));
+      fireEvent.click(wrapper.getByText("Add"));
     });
     wrapper.getByText("Company is mandatory");
     wrapper.getByText("Expiry date is mandatory");
@@ -41,12 +41,11 @@ describe("AddVoucher", () => {
       target: { value: "ABCDEF" },
     });
     await act(async () => {
-      fireEvent.click(wrapper.getByTestId("add-voucher-submit"));
+      fireEvent.click(wrapper.getByText("Add"));
     });
 
-    wrapper.getByText("Your vouchers");
     wrapper.getByText("British Airways");
-    wrapper.getByText("01/01/2030");
+    await wrapper.findByText("01/01/2030");
     wrapper.getByText("ABCDEF");
   });
 });

@@ -64,9 +64,7 @@ function AddVoucher({ onSubmit, goToPageVouchers }) {
           <ErrorMessage as="p" name="code" errors={errors} />
         </div>
 
-        <button type="submit" data-testid="add-voucher-submit">
-          Add
-        </button>
+        <button type="submit">Add</button>
       </form>
     </div>
   );

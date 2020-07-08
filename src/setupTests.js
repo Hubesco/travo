@@ -9,19 +9,20 @@ class SyncStorageMock {
     this.store = {};
   }
 
-  async get(key) {
+  get(key, callback) {
     const value = this.store[key];
-    if (!value) {
-      return {};
+    if (callback) {
+      callback(value || {});
     }
-
-    return value;
   }
-  async set(values) {
+  set(values, callback) {
     for (let property in values) {
       const objectToStore = {};
       objectToStore[property] = values[property];
       this.store[property] = objectToStore;
+    }
+    if (callback) {
+      callback();
     }
   }
 
@@ -30,7 +31,7 @@ class SyncStorageMock {
   }
 }
 
-global.browser = {
+global.chrome = {
   storage: {
     sync: new SyncStorageMock(),
   },
@@ -38,5 +39,5 @@ global.browser = {
 
 afterEach(() => {
   jest.clearAllMocks();
-  browser.storage.sync.clear();
+  chrome.storage.sync.clear();
 });

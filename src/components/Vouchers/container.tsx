@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Voucher from '../../domain/voucher.type'
 
 import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
 import Vouchers from "./Vouchers";
@@ -10,7 +9,7 @@ function VouchersContainer() {
   useEffect(() => {
     const fetchVouchers = async () => {
       const item: any = await storage.get("vouchers");
-      setVouchers(item.vouchers || new Map);
+      setVouchers(item.vouchers || {});
     };
     fetchVouchers();
   }, []);

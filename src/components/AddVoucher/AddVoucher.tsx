@@ -1,10 +1,11 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DateFnsUtils from "@date-io/date-fns";
 import {
   Button,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -21,16 +22,22 @@ import Voucher from "../../domain/voucher.type";
 import useStyles from "./styles";
 
 interface AddVoucherProps {
-  onSubmit: (voucher: Voucher) => Promise<void>;
   goToPageVouchers: () => void;
+  onSubmit: (voucher: Voucher) => Promise<void>;
 }
 
-function AddVoucher({ onSubmit, goToPageVouchers }: AddVoucherProps) {
-  const { control, handleSubmit, register, errors, setValue } = useForm<
-    Voucher
-  >();
-
+function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
   const classes = useStyles();
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    getValues,
+    control,
+    errors,
+  } = useForm<Voucher>({
+    defaultValues: { company: "" },
+  });
 
   const [selectedDate, setSelectedDate] = React.useState(
     new Date("2014-08-18T21:11:54")
@@ -40,43 +47,34 @@ function AddVoucher({ onSubmit, goToPageVouchers }: AddVoucherProps) {
     setSelectedDate(date);
   };
 
+  const companyHasError = !!errors.company;
+
   return (
     <div style={{ padding: "4px 32px 4px 16px" }}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="label-company">Company</InputLabel>
-          <Select labelId="label-company" id="name" name="company">
-            {Object.keys(companies).map((companyKey) => (
-              <MenuItem key={companyKey} value={companyKey}>
-                {companyKey}
-              </MenuItem>
-            ))}
-          </Select>
+        <FormControl className={classes.formControl} error={companyHasError}>
+          <InputLabel>Company</InputLabel>
+          <Controller
+            control={control}
+            name="company"
+            defaultValue=""
+            rules={{ required: true }}
+            error={companyHasError}
+            as={
+              <Select label="Company">
+                {Object.keys(companies).map((companyKey) => (
+                  <MenuItem key={companyKey} value={companyKey}>
+                    {companyKey}
+                  </MenuItem>
+                ))}
+              </Select>
+            }
+          />
+          {companyHasError && (
+            <FormHelperText>Company is mandatory</FormHelperText>
+          )}
         </FormControl>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <FormControl className={classes.formControl}>
-            <KeyboardDatePicker
-              id="expiryDate"
-              name="expiryDate"
-              label="Expiry Date"
-              format="dd/MM/yyyy"
-              disablePast
-              margin="normal"
-              disableToolbar
-              fullWidth
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-              error={errors.hasOwnProperty("expiryDate")}
-              helperText={errors.expiryDate && errors.expiryDate.message}
-            />
-          </FormControl>
-        </MuiPickersUtilsProvider>
-        <FormControl className={classes.formControl}>
-          <TextField id="code" label="Code" />
-        </FormControl>
+
         <div style={{ paddingTop: "8px", width: "100%", textAlign: "right" }}>
           <Button
             style={{ marginRight: "8px" }}

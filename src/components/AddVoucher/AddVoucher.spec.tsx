@@ -15,7 +15,7 @@ describe("AddVoucher", () => {
 
   it("renders the component", () => {
     wrapper.getByText("Company");
-    // wrapper.getByText("Expiry Date");
+    wrapper.getByText("Expiry Date");
     // wrapper.getByText("Code");
     wrapper.getByText("Add");
     wrapper.getByText("Cancel");
@@ -26,7 +26,7 @@ describe("AddVoucher", () => {
       fireEvent.click(wrapper.getByText("Add"));
     });
     wrapper.getByText("Company is mandatory");
-    // wrapper.getByText("Expiry date is mandatory");
+    wrapper.getByText("Expiry date is mandatory");
     // wrapper.getByText("Voucher code is mandatory");
   });
 

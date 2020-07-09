@@ -36,7 +36,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
     control,
     errors,
   } = useForm<Voucher>({
-    defaultValues: { company: "" },
+    defaultValues: { company: "", expiryDate: new Date() },
   });
 
   const [selectedDate, setSelectedDate] = React.useState(
@@ -48,6 +48,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
   };
 
   const companyHasError = !!errors.company;
+  const expiryDateHasError = !!errors.expiryDate;
 
   return (
     <div style={{ padding: "4px 32px 4px 16px" }}>
@@ -74,7 +75,32 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
             <FormHelperText>Company is mandatory</FormHelperText>
           )}
         </FormControl>
-
+        <FormControl className={classes.formControl}>
+          <Controller
+            control={control}
+            name="expiryDate"
+            rules={{ required: true }}
+            render={(props) => (
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  label="Expiry Date"
+                  format="dd/MM/yyyy"
+                  disablePast
+                  margin="normal"
+                  disableToolbar
+                  fullWidth
+                  value={props.value}
+                  onChange={props.onChange}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date",
+                  }}
+                  error={errors.hasOwnProperty("expiryDate")}
+                  helperText={errors.expiryDate && "Expiry date is mandatory"}
+                />
+              </MuiPickersUtilsProvider>
+            )}
+          />
+        </FormControl>
         <div style={{ paddingTop: "8px", width: "100%", textAlign: "right" }}>
           <Button
             style={{ marginRight: "8px" }}

@@ -26,7 +26,6 @@ describe("AddVoucher", () => {
       fireEvent.click(wrapper.getByText("Add"));
     });
     wrapper.getByText("Company is mandatory");
-    wrapper.getByText("Expiry date is mandatory");
     // wrapper.getByText("Voucher code is mandatory");
   });
 

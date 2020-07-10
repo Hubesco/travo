@@ -19,6 +19,7 @@ import {
 
 import companies from "../../domain/companies";
 import Voucher from "../../domain/voucher.type";
+import { format } from "../../utils/date";
 import useStyles from "./styles";
 
 interface AddVoucherProps {
@@ -36,7 +37,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
     control,
     errors,
   } = useForm<Voucher>({
-    defaultValues: { company: "", expiryDate: new Date() },
+    defaultValues: { company: "", expiryDate: format(new Date()), code: "" },
   });
 
   const [selectedDate, setSelectedDate] = React.useState(
@@ -49,6 +50,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
 
   const companyHasError = !!errors.company;
   const expiryDateHasError = !!errors.expiryDate;
+  const codeHasError = !!errors.code;
 
   return (
     <div style={{ padding: "4px 32px 4px 16px" }}>
@@ -61,15 +63,20 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
             defaultValue=""
             rules={{ required: true }}
             error={companyHasError}
-            as={
-              <Select label="Company">
+            render={(props) => (
+              <Select
+                onChange={props.onChange}
+                onBlur={props.onBlur}
+                value={props.value}
+                label="Company"
+              >
                 {Object.keys(companies).map((companyKey) => (
                   <MenuItem key={companyKey} value={companyKey}>
                     {companyKey}
                   </MenuItem>
                 ))}
               </Select>
-            }
+            )}
           />
           {companyHasError && (
             <FormHelperText>Company is mandatory</FormHelperText>
@@ -100,6 +107,19 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
               </MuiPickersUtilsProvider>
             )}
           />
+        </FormControl>
+        <FormControl className={classes.formControl} error={codeHasError}>
+          <Controller
+            control={control}
+            name="code"
+            rules={{ required: true }}
+            as={TextField}
+            label="Code"
+            error={codeHasError}
+          />
+          {codeHasError && (
+            <FormHelperText>Voucher code is mandatory</FormHelperText>
+          )}
         </FormControl>
         <div style={{ paddingTop: "8px", width: "100%", textAlign: "right" }}>
           <Button

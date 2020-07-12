@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": { "noEmit": false },
+  "compilerOptions": { "noEmit": false, "isolatedModules": false },
   "exclude": ["src/App", "src/components"]
 }

@@ -1,8 +1,7 @@
 import browser from "../../infrastructure/browser";
+import { format } from "../../utils/date";
 
 import "./index.css";
-
-console.log("notification");
 
 browser.runtime.onMessage.addListener(
   (message: any, sender: any, sendResponse: any) => {
@@ -11,17 +10,20 @@ browser.runtime.onMessage.addListener(
       return;
     }
     const { voucher } = message;
-    console.log(voucher);
     notification = document.createElement("div");
     notification.id = "travo-notification";
     notification.className = "fade-in";
     notification.innerHTML = `
-  There is a voucher to use!
-  <br/>
-  <p>${voucher.company}</p>
-  <p></p>
-  <p>${voucher.code}</p>
-  `;
+      <header>
+        <h6>Travo<h6>
+      </header>
+      <section>
+        <p class="title">Voucher available!</p>
+        <p>${voucher.company}</p>
+        <p>${format(new Date(voucher.expiryDate))}</p>
+        <p class="code">${voucher.code}</p>
+      </section>
+      `;
     document.body.appendChild(notification);
   }
 );

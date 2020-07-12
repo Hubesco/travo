@@ -37,11 +37,18 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "prettier"
+      "prettier",
+      "airbnb-typescript-prettier"
     ],
     "env": {
       "webextensions": true
-    }
+    },
+    "rules": {
+      "@typescript-eslint/explicit-function-return-type": "off"
+    },
+    "ignorePatterns": [
+      "webpack.config.js"
+    ]
   },
   "browserslist": {
     "production": [
@@ -62,6 +69,7 @@
   },
   "devDependencies": {
     "css-loader": "^3.5.3",
+    "eslint-config-airbnb-typescript-prettier": "^3.1.0",
     "eslint-config-prettier": "^6.11.0",
     "import-sort-style-react": "^5.1.0",
     "jest-environment-jsdom-sixteen": "^1.0.3",

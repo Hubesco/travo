@@ -1,7 +1,8 @@
 import browser from "../../infrastructure/browser";
-import { format, parse } from "../../utils/date";
 
 import "./index.css";
+
+console.log("notification");
 
 browser.runtime.onMessage.addListener(
   (message: any, sender: any, sendResponse: any) => {
@@ -9,7 +10,8 @@ browser.runtime.onMessage.addListener(
     if (notification) {
       return;
     }
-    const voucher = message.voucher;
+    const { voucher } = message;
+    console.log(voucher);
     notification = document.createElement("div");
     notification.id = "travo-notification";
     notification.className = "fade-in";

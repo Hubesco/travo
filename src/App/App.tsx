@@ -6,7 +6,13 @@ import AddVoucher from "../components/AddVoucher";
 import Vouchers from "../components/Vouchers";
 import useStyles from "./styles";
 
-function App({ page, goToPageAddVoucher, goToPageVouchers }) {
+interface AppProps {
+  page: string;
+  goToPageVouchers: () => void;
+  goToPageAddVoucher: () => void;
+}
+
+function App({ page, goToPageAddVoucher, goToPageVouchers }: AppProps) {
   const classes = useStyles();
 
   return (
@@ -19,7 +25,7 @@ function App({ page, goToPageAddVoucher, goToPageVouchers }) {
           {page !== "pageAddVoucher" && (
             <Button
               color="inherit"
-              onClick={goToPageAddVoucher}
+              onClick={() => goToPageAddVoucher()}
               data-testid="add-voucher-button"
             >
               Add voucher

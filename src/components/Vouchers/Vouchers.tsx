@@ -27,17 +27,17 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
             <TableCell>Company</TableCell>
             <TableCell>Expiry Date</TableCell>
             <TableCell>Code</TableCell>
-            <TableCell></TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
           {Object.keys(vouchers).length === 0 && (
             <TableRow>
-              <TableCell colSpan={3}>No vouchers :'(</TableCell>
+              <TableCell colSpan={3}>No vouchers :&apos;(</TableCell>
             </TableRow>
           )}
-          {Object.values(vouchers).map((v: Voucher, index: number) => (
-            <TableRow key={index}>
+          {Object.values(vouchers).map((v: Voucher) => (
+            <TableRow key={v.id}>
               <TableCell>{v.company}</TableCell>
               <TableCell>{format(toDate(v.expiryDate))}</TableCell>
               <TableCell>
@@ -53,7 +53,9 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
                 </div>
               </TableCell>
               <TableCell>
-                <button onClick={() => removeVoucher(v.id)}>Remove</button>
+                <button onClick={() => removeVoucher(v.id)} type="button">
+                  Remove
+                </button>
               </TableCell>
             </TableRow>
           ))}

@@ -12,7 +12,7 @@ interface Options {
 describe("Vouchers", () => {
   describe("when user opens the list of vouchers", () => {
     it("shows an empty list if user has no vouchers", async () => {
-      let wrapper: RenderResult = await init({});
+      const wrapper: RenderResult = await init({});
 
       wrapper.getByText("Company");
       wrapper.getByText("Expiry Date");
@@ -21,7 +21,7 @@ describe("Vouchers", () => {
     });
 
     it("shows the list of vouchers if user has some", async () => {
-      let wrapper: RenderResult = await init({ withData: true });
+      const wrapper: RenderResult = await init({ withData: true });
 
       wrapper.getByText("British Airways");
       wrapper.getByText("01/02/2022");

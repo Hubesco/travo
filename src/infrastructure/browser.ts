@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-declare var chrome: any;
+declare let chrome: any;
 const browser = chrome;
 
 export default browser;

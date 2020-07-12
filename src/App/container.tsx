@@ -8,8 +8,7 @@ function AppContainer() {
 
   useEffect(() => {
     const initStorage = async () => {
-      await storage.set({ vouchers: {} });
-      const item = await storage.get(STORAGE_KEYS.VOUCHERS);
+      const item: any = await storage.get(STORAGE_KEYS.VOUCHERS);
       if (!item.vouchers) {
         await storage.set({ vouchers: {} });
       }

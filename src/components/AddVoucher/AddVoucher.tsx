@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DateFnsUtils from "@date-io/date-fns";
@@ -6,7 +6,6 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -19,7 +18,6 @@ import {
 
 import companies from "../../domain/companies";
 import Voucher from "../../domain/voucher.type";
-import { format, toDate } from "../../utils/date";
 import useStyles from "./styles";
 
 interface AddVoucherProps {
@@ -29,19 +27,11 @@ interface AddVoucherProps {
 
 function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
   const classes = useStyles();
-  const {
-    handleSubmit,
-    register,
-    setValue,
-    getValues,
-    control,
-    errors,
-  } = useForm({
+  const { handleSubmit, control, errors } = useForm({
     defaultValues: { company: "", expiryDate: new Date(), code: "" },
   });
 
   const companyHasError = !!errors.company;
-  const expiryDateHasError = !!errors.expiryDate;
   const codeHasError = !!errors.code;
 
   return (
@@ -96,7 +86,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
                     "aria-label": "change date",
                   }}
                   inputProps={{ "data-testid": "expiry-date-datepicker" }}
-                  error={errors.hasOwnProperty("expiryDate")}
+                  error={!!errors.expiryDate}
                   helperText={errors.expiryDate && "Expiry date is mandatory"}
                 />
               </MuiPickersUtilsProvider>

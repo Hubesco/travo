@@ -20,7 +20,7 @@ describe("App", () => {
   describe("when user wants to add a new voucher", () => {
     it("shows the form when clicking on the add voucher button", async () => {
       fireEvent.click(wrapper.getByTestId("add-voucher-button"));
-      wrapper.getByText("Add a new voucher");
+      wrapper.getByText("Add");
     });
 
     it("redirects to main page if user cancels the creation", async () => {

@@ -1,5 +1,3 @@
-import "react-datepicker/dist/react-datepicker.css";
-
 import React from "react";
 
 import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
@@ -8,7 +6,13 @@ import AddVoucher from "../components/AddVoucher";
 import Vouchers from "../components/Vouchers";
 import useStyles from "./styles";
 
-function App({ page, goToPageAddVoucher, goToPageVouchers }) {
+interface AppProps {
+  page: string;
+  goToPageVouchers: () => void;
+  goToPageAddVoucher: () => void;
+}
+
+function App({ page, goToPageAddVoucher, goToPageVouchers }: AppProps) {
   const classes = useStyles();
 
   return (
@@ -18,13 +22,15 @@ function App({ page, goToPageAddVoucher, goToPageVouchers }) {
           <Typography variant="h6" className={classes.title}>
             Travo
           </Typography>
-          <Button
-            color="inherit"
-            onClick={goToPageAddVoucher}
-            data-testid="add-voucher-button"
-          >
-            Add voucher
-          </Button>
+          {page !== "pageAddVoucher" && (
+            <Button
+              color="inherit"
+              onClick={() => goToPageAddVoucher()}
+              data-testid="add-voucher-button"
+            >
+              Add voucher
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       {page === "pageVouchers" && (
@@ -33,15 +39,7 @@ function App({ page, goToPageAddVoucher, goToPageVouchers }) {
         </>
       )}
       {page === "pageAddVoucher" && (
-        <>
-          <AddVoucher goToPageVouchers={goToPageVouchers} />
-          <Button
-            onClick={goToPageVouchers}
-            data-testid="cancel-add-voucher-button"
-          >
-            Cancel
-          </Button>
-        </>
+        <AddVoucher goToPageVouchers={goToPageVouchers} />
       )}
     </Box>
   );

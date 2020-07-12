@@ -1,9 +1,13 @@
-import { format as formatDateFns, parseISO } from "date-fns";
+import { format as formatDateFns, parse as parseDateFns } from "date-fns";
 
-export function parse(dateString: string) {
-  return parseISO(dateString);
+export function parse(dateString: string, pattern = "dd/MM/yyy") {
+  return parseDateFns(pattern, dateString, new Date());
 }
 
-export function format(date: Date, format = "dd/MM/yyyy") {
-  return formatDateFns(date, format);
+export function format(date: Date, pattern = "dd/MM/yyyy") {
+  return formatDateFns(date, pattern);
+}
+
+export function toDate(timestamp: number) {
+  return new Date(timestamp);
 }

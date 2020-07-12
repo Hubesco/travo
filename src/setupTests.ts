@@ -5,19 +5,23 @@
 import "@testing-library/jest-dom/extend-expect";
 
 class SyncStorageMock {
+  store: Record<string, any>;
+
   constructor() {
     this.store = {};
   }
 
-  get(key, callback) {
+  get(key: string, callback: Function) {
     const value = this.store[key];
     if (callback) {
       callback(value || {});
     }
   }
-  set(values, callback) {
-    for (let property in values) {
-      const objectToStore = {};
+
+  set(values: any, callback: Function) {
+    // eslint-disable-next-line
+    for (const property in values) {
+      const objectToStore: any = {};
       objectToStore[property] = values[property];
       this.store[property] = objectToStore;
     }
@@ -31,7 +35,9 @@ class SyncStorageMock {
   }
 }
 
-global.chrome = {
+const globalAny: any = global;
+
+globalAny.chrome = {
   storage: {
     sync: new SyncStorageMock(),
   },
@@ -39,5 +45,5 @@ global.chrome = {
 
 afterEach(() => {
   jest.clearAllMocks();
-  chrome.storage.sync.clear();
+  globalAny.chrome.storage.sync.clear();
 });

@@ -1,6 +1,5 @@
 import React from "react";
 
-import Voucher from '../../domain/voucher.type'
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,12 +7,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { format, parse } from "../../utils/date";
+import Voucher from "../../domain/voucher.type";
+import { format, toDate } from "../../utils/date";
 import useStyles from "./styles";
 
 interface VouchersProps {
   vouchers: { [name: string]: Voucher };
-  removeVoucher: (voucherId: string) => void
+  removeVoucher: (voucherId: string) => void;
 }
 
 function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
@@ -27,19 +27,19 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
             <TableCell>Company</TableCell>
             <TableCell>Expiry Date</TableCell>
             <TableCell>Code</TableCell>
-            <TableCell></TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
           {Object.keys(vouchers).length === 0 && (
             <TableRow>
-              <TableCell colSpan={3}>No vouchers :'(</TableCell>
+              <TableCell colSpan={3}>No vouchers :&apos;(</TableCell>
             </TableRow>
           )}
-          {Object.values(vouchers).map((v, index) => (
-            <TableRow key={index}>
+          {Object.values(vouchers).map((v: Voucher) => (
+            <TableRow key={v.id}>
               <TableCell>{v.company}</TableCell>
-              <TableCell>{format(parse(v.expiryDate))}</TableCell>
+              <TableCell>{format(toDate(v.expiryDate))}</TableCell>
               <TableCell>
                 <div
                   style={{
@@ -53,7 +53,9 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
                 </div>
               </TableCell>
               <TableCell>
-                <button onClick={() => removeVoucher(v.id)}>Remove</button>
+                <button onClick={() => removeVoucher(v.id)} type="button">
+                  Remove
+                </button>
               </TableCell>
             </TableRow>
           ))}

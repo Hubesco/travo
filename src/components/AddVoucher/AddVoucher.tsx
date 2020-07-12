@@ -48,7 +48,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
     <div style={{ padding: "4px 32px 4px 16px" }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl className={classes.formControl} error={companyHasError}>
-          <InputLabel>Company</InputLabel>
+          <InputLabel id="company-label">Company</InputLabel>
           <Controller
             control={control}
             name="company"
@@ -57,9 +57,11 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
             error={companyHasError}
             render={(props) => (
               <Select
+                labelId="company-label"
                 onChange={props.onChange}
                 onBlur={props.onBlur}
                 value={props.value}
+                inputProps={{ "data-testid": "select-company" }}
                 label="Company"
               >
                 {Object.keys(companies).map((companyKey) => (
@@ -93,6 +95,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
                   KeyboardButtonProps={{
                     "aria-label": "change date",
                   }}
+                  inputProps={{ "data-testid": "expiry-date-datepicker" }}
                   error={errors.hasOwnProperty("expiryDate")}
                   helperText={errors.expiryDate && "Expiry date is mandatory"}
                 />
@@ -107,6 +110,7 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
             rules={{ required: true }}
             as={TextField}
             label="Code"
+            inputProps={{ "data-testid": "code-input" }}
             error={codeHasError}
           />
           {codeHasError && (

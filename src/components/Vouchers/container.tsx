@@ -9,7 +9,6 @@ function VouchersContainer() {
   useEffect(() => {
     const fetchVouchers = async () => {
       const item: any = await storage.get("vouchers");
-      console.log(item.vouchers);
       setVouchers(item.vouchers || {});
     };
     fetchVouchers();

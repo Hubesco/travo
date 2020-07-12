@@ -30,21 +30,22 @@ describe("AddVoucher", () => {
   });
 
   it("adds the voucher to the list when user submits the form", async () => {
-    fireEvent.change(wrapper.getByLabelText("Company"), {
+    const select = wrapper.getByTestId("select-company");
+    fireEvent.change(select, {
       target: { value: "British Airways" },
     });
-    // fireEvent.change(wrapper.getByLabelText("Expiry Date"), {
-    //   target: { value: new Date("2030-01-01") },
-    // });
-    // fireEvent.change(wrapper.getByLabelText("Code"), {
-    //   target: { value: "ABCDEF" },
-    // });
-    // await act(async () => {
-    //   fireEvent.click(wrapper.getByText("Add"));
-    // });
+    fireEvent.change(wrapper.getByTestId("expiry-date-datepicker"), {
+      target: { value: "01/01/2030" },
+    });
+    fireEvent.change(wrapper.getByTestId("code-input"), {
+      target: { value: "ABCDEF" },
+    });
+    await act(async () => {
+      fireEvent.click(wrapper.getByText("Add"));
+    });
 
-    // wrapper.getByText("British Airways");
-    // await wrapper.findByText("01/01/2030");
-    // wrapper.getByText("ABCDEF");
+    wrapper.getByText("British Airways");
+    wrapper.getByText("01/01/2030");
+    wrapper.getByText("ABCDEF");
   });
 });

@@ -66,13 +66,13 @@ async function init({ withData = false }: Options) {
         uuid1: {
           id: "uuid1",
           company: "British Airways",
-          expiryDate: "2022-02-01",
+          expiryDate: new Date("2022-02-01").getTime(),
           code: "ABCDEF",
         },
         uuid2: {
           id: "uuid2",
           company: "Eurostar",
-          expiryDate: "2023-03-01",
+          expiryDate: new Date("2023-03-01").getTime(),
           code: "GHIJKL",
         },
       },

@@ -1,8 +1,8 @@
 interface Voucher {
-  id: string
-  company: string
-  expiryDate: string
-  code: string
+  id: string;
+  company: string;
+  expiryDate: number;
+  code: string;
 }
 
-export default Voucher
+export default Voucher;

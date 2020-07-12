@@ -19,7 +19,7 @@ import {
 
 import companies from "../../domain/companies";
 import Voucher from "../../domain/voucher.type";
-import { format } from "../../utils/date";
+import { format, toDate } from "../../utils/date";
 import useStyles from "./styles";
 
 interface AddVoucherProps {
@@ -36,17 +36,9 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
     getValues,
     control,
     errors,
-  } = useForm<Voucher>({
-    defaultValues: { company: "", expiryDate: format(new Date()), code: "" },
+  } = useForm({
+    defaultValues: { company: "", expiryDate: new Date(), code: "" },
   });
-
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
-
-  const handleDateChange = (date: any) => {
-    setSelectedDate(date);
-  };
 
   const companyHasError = !!errors.company;
   const expiryDateHasError = !!errors.expiryDate;

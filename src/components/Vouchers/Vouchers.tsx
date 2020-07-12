@@ -1,6 +1,5 @@
 import React from "react";
 
-import Voucher from '../../domain/voucher.type'
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,12 +7,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { format, parse } from "../../utils/date";
+import Voucher from "../../domain/voucher.type";
+import { format, toDate } from "../../utils/date";
 import useStyles from "./styles";
 
 interface VouchersProps {
   vouchers: { [name: string]: Voucher };
-  removeVoucher: (voucherId: string) => void
+  removeVoucher: (voucherId: string) => void;
 }
 
 function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
@@ -36,10 +36,10 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
               <TableCell colSpan={3}>No vouchers :'(</TableCell>
             </TableRow>
           )}
-          {Object.values(vouchers).map((v, index) => (
+          {Object.values(vouchers).map((v: Voucher, index: number) => (
             <TableRow key={index}>
               <TableCell>{v.company}</TableCell>
-              <TableCell>{format(parse(v.expiryDate))}</TableCell>
+              <TableCell>{format(toDate(v.expiryDate))}</TableCell>
               <TableCell>
                 <div
                   style={{

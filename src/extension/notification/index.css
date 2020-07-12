@@ -1,9 +1,8 @@
 #travo-notification {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-  width: 250px;
-  height: 150px;
-  padding: 16px;
+  width: 300px;
+  height: 250px;
   position: fixed;
   background: white;
   bottom: 16px;
@@ -11,9 +10,50 @@
   z-index: 10000;
 }
 
+#travo-notification header {
+  height: 48px;
+  padding: 0px 24px;
+  display: flex;
+  align-items: center;
+  background-color: #5369dd;
+  width: 100%;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+#travo-notification header h6 {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#travo-notification section {
+  padding: 16px 24px;
+}
+
 #travo-notification p {
   margin: 0;
   padding: 4px 0;
+  font-style: normal;
+  font-weight: normal;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+  font-size: 16px;
+  color: rgb(85, 86, 90);
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#travo-notification p.code {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#travo-notification p.title {
+  font-weight: bold;
 }
 
 #travo-notification .fade-in {

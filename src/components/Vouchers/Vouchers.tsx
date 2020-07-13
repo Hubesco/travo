@@ -38,7 +38,17 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
           )}
           {Object.values(vouchers).map((v: Voucher) => (
             <TableRow key={v.id}>
-              <TableCell>{v.company}</TableCell>
+              <TableCell>
+                <div
+                  style={{
+                    maxWidth: "100px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {v.company}
+                </div>
+              </TableCell>
               <TableCell>{format(toDate(v.expiryDate))}</TableCell>
               <TableCell>
                 <div

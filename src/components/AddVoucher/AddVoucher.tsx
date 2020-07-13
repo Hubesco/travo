@@ -7,7 +7,6 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
-  MenuItem,
   Select,
   TextField,
 } from "@material-ui/core";
@@ -34,11 +33,21 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
   const companyHasError = !!errors.company;
   const codeHasError = !!errors.code;
 
+  const planeCompanies = Object.values(companies).filter(
+    (company) => company.type === "plane"
+  );
+  const shoppingCompanies = Object.values(companies).filter(
+    (company) => company.type === "shopping"
+  );
+  const trainCompanies = Object.values(companies).filter(
+    (company) => company.type === "train"
+  );
+
   return (
     <div style={{ padding: "4px 32px 4px 16px" }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl className={classes.formControl} error={companyHasError}>
-          <InputLabel id="company-label">Company</InputLabel>
+          <InputLabel htmlFor="company-label">Company</InputLabel>
           <Controller
             control={control}
             name="company"
@@ -47,18 +56,37 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
             error={companyHasError}
             render={(props) => (
               <Select
-                labelId="company-label"
+                native
                 onChange={props.onChange}
                 onBlur={props.onBlur}
                 value={props.value}
-                inputProps={{ "data-testid": "select-company" }}
-                label="Company"
+                inputProps={{
+                  "data-testid": "select-company",
+                  id: "company-label",
+                }}
               >
-                {Object.keys(companies).map((companyKey) => (
-                  <MenuItem key={companyKey} value={companyKey}>
-                    {companyKey}
-                  </MenuItem>
-                ))}
+                <option aria-label="None" value="" />
+                <optgroup label="Planes">
+                  {planeCompanies.map((company) => (
+                    <option key={company.name} value={company.name}>
+                      {company.name}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Shopping">
+                  {shoppingCompanies.map((company) => (
+                    <option key={company.name} value={company.name}>
+                      {company.name}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Trains">
+                  {trainCompanies.map((company) => (
+                    <option key={company.name} value={company.name}>
+                      {company.name}
+                    </option>
+                  ))}
+                </optgroup>
               </Select>
             )}
           />

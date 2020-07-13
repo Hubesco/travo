@@ -35,11 +35,14 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
   const companyHasError = !!errors.company;
   const codeHasError = !!errors.code;
 
-  const trainCompanies = Object.values(companies).filter(
-    (company) => company.type === "train"
-  );
   const planeCompanies = Object.values(companies).filter(
     (company) => company.type === "plane"
+  );
+  const shoppingCompanies = Object.values(companies).filter(
+    (company) => company.type === "shopping"
+  );
+  const trainCompanies = Object.values(companies).filter(
+    (company) => company.type === "train"
   );
 
   return (
@@ -65,15 +68,22 @@ function AddVoucher({ goToPageVouchers, onSubmit }: AddVoucherProps) {
                 }}
               >
                 <option aria-label="None" value="" />
-                <optgroup label="Trains">
-                  {trainCompanies.map((company) => (
+                <optgroup label="Planes">
+                  {planeCompanies.map((company) => (
                     <option key={company.name} value={company.name}>
                       {company.name}
                     </option>
                   ))}
                 </optgroup>
-                <optgroup label="Planes">
-                  {planeCompanies.map((company) => (
+                <optgroup label="Shopping">
+                  {shoppingCompanies.map((company) => (
+                    <option key={company.name} value={company.name}>
+                      {company.name}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Trains">
+                  {trainCompanies.map((company) => (
                     <option key={company.name} value={company.name}>
                       {company.name}
                     </option>

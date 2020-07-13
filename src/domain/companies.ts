@@ -1,10 +1,65 @@
 interface Company {
   name: string;
   domain: string;
-  type: "plane" | "train";
+  type: "plane" | "shopping" | "train";
 }
 
 const companies: { [name: string]: Company } = {
+  // Plane
+  "Air France": {
+    name: "Air France",
+    domain: "airfrance.com",
+    type: "plane",
+  },
+  "British Airways": {
+    name: "British Airways",
+    domain: "britishairways.com",
+    type: "plane",
+  },
+  "Eastern Airways": {
+    name: "Eastern Airways",
+    domain: "easternairways.com",
+    type: "plane",
+  },
+  easyJet: { name: "easyJet", domain: "easyjet.com", type: "plane" },
+  Jet2: { name: "Jet2", domain: "jet2.com", type: "plane" },
+  Loganair: { name: "Loganair", domain: "loganair.co.uk", type: "plane" },
+  Nowegian: { name: "Norwegian", domain: "norwegian.com", type: "plane" },
+  Ryanair: { name: "Ryanair", domain: "ryanair.com", type: "plane" },
+  "Virgin Atlantic": {
+    name: "Virgin Atlantic",
+    domain: "virginatlantic.com",
+    type: "plane",
+  },
+  "Wizz Air": { name: "Wizz Air", domain: "wizzair.com", type: "plane" },
+
+  // Shopping
+  Amazon: {
+    name: "Amazon",
+    domain: "amazon.co.uk",
+    type: "shopping",
+  },
+  Ocado: {
+    name: "Ocado",
+    domain: "ocado.com",
+    type: "shopping",
+  },
+  "Sainsbury's": {
+    name: "Sainsbury's",
+    domain: "sainsburys.co.uk",
+    type: "shopping",
+  },
+  Tesco: {
+    name: "Tesco",
+    domain: "tesco.com",
+    type: "shopping",
+  },
+  "Waitrose & Partners": {
+    name: "Waitrose & Partners",
+    domain: "waitrose.com",
+    type: "shopping",
+  },
+
   // Train
   "Arriva Rail": {
     name: "Arriva Rail",
@@ -99,34 +154,6 @@ const companies: { [name: string]: Company } = {
     domain: "westmidlandsrailway.co.uk",
     type: "train",
   },
-
-  // Plane
-  "Air France": {
-    name: "Air France",
-    domain: "airfrance.com",
-    type: "plane",
-  },
-  "British Airways": {
-    name: "British Airways",
-    domain: "britishairways.com",
-    type: "plane",
-  },
-  "Eastern Airways": {
-    name: "Eastern Airways",
-    domain: "easternairways.com",
-    type: "plane",
-  },
-  easyJet: { name: "easyJet", domain: "easyjet.com", type: "plane" },
-  Jet2: { name: "Jet2", domain: "jet2.com", type: "plane" },
-  Loganair: { name: "Loganair", domain: "loganair.co.uk", type: "plane" },
-  Nowegian: { name: "Norwegian", domain: "norwegian.com", type: "plane" },
-  Ryanair: { name: "Ryanair", domain: "ryanair.com", type: "plane" },
-  "Virgin Atlantic": {
-    name: "Virgin Atlantic",
-    domain: "virginatlantic.com",
-    type: "plane",
-  },
-  "Wizz Air": { name: "Wizz Air", domain: "wizzair.com", type: "plane" },
 };
 
 export default companies;

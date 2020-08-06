@@ -68,7 +68,7 @@
     }
   },
   "devDependencies": {
-    "css-loader": "^3.6.0",
+    "css-loader": "^4.2.0",
     "eslint-config-airbnb-typescript-prettier": "^3.1.0",
     "eslint-config-prettier": "^6.11.0",
     "import-sort-style-react": "^5.1.0",

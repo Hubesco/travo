@@ -6,17 +6,28 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 import Voucher from "../../domain/voucher.type";
 import { format, toDate } from "../../utils/date";
 import useStyles from "./styles";
+import type { Order, OrderBy } from "./types";
 
 interface VouchersProps {
-  vouchers: { [name: string]: Voucher };
+  onClickSort: (property: OrderBy) => void;
+  order: Order;
+  orderBy: OrderBy;
   removeVoucher: (voucherId: string) => void;
+  vouchers: Array<Voucher>;
 }
 
-function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
+function Vouchers({
+  onClickSort,
+  order,
+  orderBy,
+  removeVoucher,
+  vouchers,
+}: VouchersProps) {
   const classes = useStyles();
 
   return (
@@ -24,8 +35,24 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Company</TableCell>
-            <TableCell>Expiry Date</TableCell>
+            <TableCell sortDirection={orderBy === "company" ? order : false}>
+              <TableSortLabel
+                active={orderBy === "company"}
+                direction={orderBy === "company" ? order : "asc"}
+                onClick={() => onClickSort("company")}
+              >
+                Company
+              </TableSortLabel>
+            </TableCell>
+            <TableCell sortDirection={orderBy === "expiryDate" ? order : false}>
+              <TableSortLabel
+                active={orderBy === "expiryDate"}
+                direction={orderBy === "expiryDate" ? order : "asc"}
+                onClick={() => onClickSort("expiryDate")}
+              >
+                Expiry Date
+              </TableSortLabel>
+            </TableCell>
             <TableCell>Code</TableCell>
             <TableCell />
           </TableRow>
@@ -40,6 +67,7 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
             <TableRow key={v.id}>
               <TableCell>
                 <div
+                  data-testid="company"
                   style={{
                     maxWidth: "100px",
                     overflow: "hidden",
@@ -49,7 +77,9 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
                   {v.company}
                 </div>
               </TableCell>
-              <TableCell>{format(toDate(v.expiryDate))}</TableCell>
+              <TableCell data-testid="expiryDate">
+                {format(toDate(v.expiryDate))}
+              </TableCell>
               <TableCell>
                 <div
                   style={{

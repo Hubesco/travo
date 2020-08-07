@@ -51,7 +51,7 @@ async function sendNotification(voucher: Voucher, tabId: string) {
     await browser.tabs.sendMessage(tabId, {
       voucher,
     });
-  } catch (err) {
-    console.log(err);
+  } catch {
+    // can't do anything
   }
 }

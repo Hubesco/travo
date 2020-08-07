@@ -10,13 +10,15 @@ import TableRow from "@material-ui/core/TableRow";
 import Voucher from "../../domain/voucher.type";
 import { format, toDate } from "../../utils/date";
 import useStyles from "./styles";
+import type { OrderBy } from "./types";
 
 interface VouchersProps {
-  vouchers: { [name: string]: Voucher };
+  onClickSort: (property: OrderBy) => void;
   removeVoucher: (voucherId: string) => void;
+  vouchers: Array<Voucher>;
 }
 
-function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
+function Vouchers({ onClickSort, removeVoucher, vouchers }: VouchersProps) {
   const classes = useStyles();
 
   return (
@@ -24,8 +26,12 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Company</TableCell>
-            <TableCell>Expiry Date</TableCell>
+            <TableCell onClick={() => onClickSort("company")}>
+              Company
+            </TableCell>
+            <TableCell onClick={() => onClickSort("expiryDate")}>
+              Expiry Date
+            </TableCell>
             <TableCell>Code</TableCell>
             <TableCell />
           </TableRow>
@@ -40,6 +46,7 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
             <TableRow key={v.id}>
               <TableCell>
                 <div
+                  data-testid="company"
                   style={{
                     maxWidth: "100px",
                     overflow: "hidden",
@@ -49,7 +56,9 @@ function Vouchers({ vouchers, removeVoucher }: VouchersProps) {
                   {v.company}
                 </div>
               </TableCell>
-              <TableCell>{format(toDate(v.expiryDate))}</TableCell>
+              <TableCell data-testid="expiryDate">
+                {format(toDate(v.expiryDate))}
+              </TableCell>
               <TableCell>
                 <div
                   style={{

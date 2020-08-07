@@ -43,6 +43,7 @@ describe("Vouchers", () => {
 
     it("can sort by company", async () => {
       fireEvent.click(screen.getByText("Company"));
+
       let cells = screen.getAllByTestId("company");
       expect(cells[0].innerHTML).toBe("British Airways");
       expect(cells[1].innerHTML).toBe("Eurostar");

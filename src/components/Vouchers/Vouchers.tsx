@@ -6,19 +6,28 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 import Voucher from "../../domain/voucher.type";
 import { format, toDate } from "../../utils/date";
 import useStyles from "./styles";
-import type { OrderBy } from "./types";
+import type { Order, OrderBy } from "./types";
 
 interface VouchersProps {
   onClickSort: (property: OrderBy) => void;
+  order: Order;
+  orderBy: OrderBy;
   removeVoucher: (voucherId: string) => void;
   vouchers: Array<Voucher>;
 }
 
-function Vouchers({ onClickSort, removeVoucher, vouchers }: VouchersProps) {
+function Vouchers({
+  onClickSort,
+  order,
+  orderBy,
+  removeVoucher,
+  vouchers,
+}: VouchersProps) {
   const classes = useStyles();
 
   return (
@@ -26,11 +35,23 @@ function Vouchers({ onClickSort, removeVoucher, vouchers }: VouchersProps) {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell onClick={() => onClickSort("company")}>
-              Company
+            <TableCell sortDirection={orderBy === "company" ? order : false}>
+              <TableSortLabel
+                active={orderBy === "company"}
+                direction={orderBy === "company" ? order : "asc"}
+                onClick={() => onClickSort("company")}
+              >
+                Company
+              </TableSortLabel>
             </TableCell>
-            <TableCell onClick={() => onClickSort("expiryDate")}>
-              Expiry Date
+            <TableCell sortDirection={orderBy === "expiryDate" ? order : false}>
+              <TableSortLabel
+                active={orderBy === "expiryDate"}
+                direction={orderBy === "expiryDate" ? order : "asc"}
+                onClick={() => onClickSort("expiryDate")}
+              >
+                Expiry Date
+              </TableSortLabel>
             </TableCell>
             <TableCell>Code</TableCell>
             <TableCell />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import orderBy from "lodash/fp/orderBy";
+import lodashOrderBy from "lodash/fp/orderBy";
 
 import Voucher from "../../domain/voucher.type";
 import storage, { STORAGE_KEYS } from "../../infrastructure/storage";
@@ -10,7 +10,7 @@ import Vouchers from "./Vouchers";
 function VouchersContainer() {
   const [vouchers, setVouchers] = useState({});
   const [order, setOrder] = useState<Order>("asc");
-  const [orderByProperty, setOrderByProperty] = useState<OrderBy>("expiryDate");
+  const [orderBy, setOrderBy] = useState<OrderBy>("expiryDate");
 
   useEffect(() => {
     const fetchVouchers = async () => {
@@ -21,7 +21,7 @@ function VouchersContainer() {
     fetchVouchers();
   }, []);
 
-  const sortedVouchers = orderBy([orderByProperty])([order])(vouchers) as Array<
+  const sortedVouchers = lodashOrderBy([orderBy])([order])(vouchers) as Array<
     Voucher
   >;
 
@@ -34,17 +34,19 @@ function VouchersContainer() {
   }
 
   function onClickSort(property: OrderBy) {
-    if (property === orderByProperty) {
+    if (property === orderBy) {
       setOrder(order === "asc" ? "desc" : "asc");
     } else {
       setOrder("asc");
-      setOrderByProperty(property);
+      setOrderBy(property);
     }
   }
 
   return (
     <Vouchers
       onClickSort={onClickSort}
+      order={order}
+      orderBy={orderBy}
       removeVoucher={removeVoucher}
       vouchers={sortedVouchers}
     />

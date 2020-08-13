@@ -20,5 +20,5 @@
       "js": ["static/js/notification.js"]
     }
   ],
-  "permissions": ["activeTab", "storage", "tabs"]
+  "permissions": ["https://*/*", "storage", "tabs"]
 }

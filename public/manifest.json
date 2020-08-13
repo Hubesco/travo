@@ -1,6 +1,6 @@
 {
   "name": "Travo",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "manifest_version": 2,
   "browser_specific_settings": {
     "gecko": {
@@ -20,5 +20,5 @@
       "js": ["static/js/notification.js"]
     }
   ],
-  "permissions": ["activeTab", "storage", "tabs"]
+  "permissions": ["https://*/*", "storage", "tabs"]
 }

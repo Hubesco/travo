@@ -80,7 +80,7 @@
     "prettier": "^2.0.5",
     "prettier-plugin-import-sort": "^0.0.4",
     "style-loader": "^1.2.1",
-    "ts-loader": "^8.0.2",
+    "ts-loader": "^8.0.10",
     "webpack-cli": "^3.3.12",
     "webpack-extension-reloader": "^1.1.4"
   }
